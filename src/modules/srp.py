@@ -28,20 +28,20 @@ class SRPModule:
         srp_verifier : str = data.get("srp_verifier")
         
         if not username:
-            return jsonify({"Error", "(username) not specified."}), 404
+            return jsonify({"Error": "(username) not specified."}), 404
         
         if not srp_salt:
-            return jsonify({"Error", "(srp_salt) not specified."}), 404
+            return jsonify({"Error": "(srp_salt) not specified."}), 404
         
         if not srp_verifier:
-            return jsonify({"Error", "(srp_verifier) not specified."}), 404
+            return jsonify({"Error": "(srp_verifier) not specified."}), 404
         
         if self.data_manager.get_user(username):
-            return jsonify({"Error", "(username) already exist."}), 404
+            return jsonify({"Error": "(username) already exist."}), 404
         
         self.data_manager.add_user(username, bytes.fromhex(srp_verifier), bytes.fromhex(srp_salt))
                 
-        return jsonify({"Success", "Registered successfully."}), 200
+        return jsonify({"Success": "Registered successfully."}), 200
     
     def _start(self):
         data : dict = request.get_json()
@@ -49,10 +49,10 @@ class SRPModule:
         username = data.get("username")
         
         if not a:
-            return jsonify({"Error", "(A) not specified."}), 404
+            return jsonify({"Error": "(A) not specified."}), 404
     
         if not username:
-            return jsonify({"Error", "(username) not specified."}), 404
+            return jsonify({"Error": "(username) not specified."}), 404
         
         A = bytes.fromhex(a)
         user = self.data_manager.get_user(username)
